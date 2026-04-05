@@ -1,0 +1,709 @@
+:root {
+  --wsu-crimson: #981e32;
+  --journal-accent: #8b3445;
+  --network-market: #8b3445;
+  --network-transport: #5a7664;
+  --network-bridge: #3f6f93;
+  --network-systems: #6b5b50;
+  --paper: #fffefc;
+  --paper-strong: #fcfaf6;
+  --ink: #20252a;
+  --muted: #6e6459;
+  --line: rgba(76, 58, 40, 0.12);
+  --soft-line: rgba(32, 37, 42, 0.12);
+  --sidebar: #981e32;
+  --sidebar-text: #ffffff;
+  --sidebar-muted: rgba(255, 255, 255, 0.84);
+  --sidebar-line: rgba(255, 255, 255, 0.2);
+  --shadow: 0 24px 70px rgba(45, 31, 20, 0.12);
+  --radius-lg: 28px;
+  --radius-md: 18px;
+  --max-width: 1320px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  background: #ffffff;
+}
+
+.page-shell {
+  width: min(calc(100% - 40px), var(--max-width));
+  margin: 24px auto;
+  display: grid;
+  grid-template-columns: 272px minmax(0, 1fr);
+  grid-template-areas:
+    "top top"
+    "left right";
+  gap: 24px;
+}
+
+.top-bar {
+  grid-area: top;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.section-heading h2,
+h3 {
+  font-family: "Cormorant Garamond", Georgia, serif;
+}
+
+.page-name {
+  margin: 0;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: 1.32rem;
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.profile-panel,
+.content-panel {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.profile-panel {
+  grid-area: left;
+  background: var(--sidebar);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.content-panel {
+  grid-area: right;
+  padding: 28px;
+  background: var(--paper);
+  border: 1px solid rgba(76, 58, 40, 0.1);
+}
+
+.panel-inner {
+  position: sticky;
+  top: 24px;
+  padding: 24px;
+}
+
+.profile-mark {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  display: block;
+  margin: 0 0 18px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: #d8d0c5;
+}
+
+.profile-name,
+.title,
+.affiliation,
+.contact-mini,
+.accounts-block {
+  max-width: 220px;
+}
+
+.profile-name {
+  margin: 0 0 6px;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--sidebar-text);
+}
+
+.title,
+.affiliation,
+.contact-mini,
+.card-label,
+.course-number,
+.contact-label {
+  color: var(--sidebar-muted);
+}
+
+.title {
+  margin: 0 0 10px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.affiliation,
+.contact-mini p,
+.contact-mini a {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.contact-mini,
+.accounts-block {
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid var(--sidebar-line);
+}
+
+.contact-mini a,
+.contact-section a,
+.account-link,
+.grant-card a,
+.tab-link {
+  text-decoration: none;
+}
+
+.contact-mini a,
+.account-link {
+  color: var(--sidebar-text);
+}
+
+.contact-row,
+.account-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.contact-row + .contact-row {
+  margin-top: 10px;
+}
+
+.account-link {
+  padding: 8px 0;
+  font-weight: 600;
+}
+
+.account-icon-img,
+.contact-icon-img {
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.account-icon-img {
+  width: 26px;
+  height: 26px;
+}
+
+.contact-icon-img {
+  width: 22px;
+  height: 22px;
+}
+
+.tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: flex-end;
+}
+
+.tab-link {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font: inherit;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--ink);
+  cursor: pointer;
+  transition: opacity 140ms ease, color 140ms ease;
+}
+
+.tab-link:hover,
+.tab-link:focus-visible {
+  opacity: 0.7;
+  outline: none;
+}
+
+.tab-link.active {
+  font-weight: 700;
+}
+
+.tab-panel {
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+
+.tab-panel[hidden] {
+  display: none;
+}
+
+.section-heading {
+  margin-bottom: 18px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  color: var(--ink);
+}
+
+.section-body p,
+.section-body li {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.education-grid,
+.teaching-grid,
+.contact-section {
+  display: grid;
+  gap: 16px;
+}
+
+.education-grid,
+.teaching-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 22px;
+}
+
+.teaching-grid.four-up {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.contact-section {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.info-card,
+.course-card,
+.research-network-card,
+.research-note,
+.contact-section > div,
+.publication-group,
+.grant-card {
+  background: var(--paper);
+  color: var(--ink);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--soft-line);
+  padding: 20px;
+}
+
+.info-card h3,
+.course-card h3,
+.research-note h3,
+.publication-group h3,
+.grant-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.8rem;
+  color: var(--ink);
+}
+
+.card-label,
+.course-number,
+.contact-label {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.74rem;
+  color: var(--muted);
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.tag-cloud span {
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(152, 30, 50, 0.08);
+  border: 1px solid rgba(152, 30, 50, 0.14);
+  color: var(--wsu-crimson);
+  font-size: 0.92rem;
+}
+
+.home-inline-link {
+  color: var(--journal-accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.home-inline-link:hover,
+.home-inline-link:focus-visible {
+  color: #6f2432;
+  text-decoration: underline;
+}
+
+.research-network-card {
+  margin: 22px 0 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at top right, rgba(16, 110, 190, 0.06), transparent 34%),
+    radial-gradient(circle at bottom left, rgba(152, 30, 50, 0.08), transparent 42%),
+    var(--paper);
+}
+
+.research-network-caption {
+  margin: 0 0 16px;
+  color: var(--muted);
+  max-width: 42rem;
+}
+
+.research-network {
+  position: relative;
+  margin: 0;
+  min-height: 620px;
+  border-radius: calc(var(--radius-md) - 4px);
+  border: 1px solid rgba(76, 58, 40, 0.08);
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(252, 250, 246, 0.96)),
+    radial-gradient(circle at center, rgba(139, 52, 69, 0.06), transparent 48%);
+}
+
+.research-network::before {
+  content: "";
+  position: absolute;
+  inset: 20px;
+  border-radius: calc(var(--radius-md) - 8px);
+  background-image:
+    linear-gradient(rgba(110, 100, 89, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(110, 100, 89, 0.08) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95) 42%, transparent 88%);
+  pointer-events: none;
+}
+
+.research-network-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.research-network-svg text {
+  user-select: none;
+}
+
+.word-cloud-term {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  opacity: 0.92;
+  paint-order: stroke;
+  stroke: rgba(255, 255, 255, 0.78);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  transition: opacity 180ms ease, filter 180ms ease;
+}
+
+.word-cloud-term.is-featured {
+  font-weight: 800;
+}
+
+.word-cloud-term:hover,
+.word-cloud-term:focus-visible {
+  opacity: 1;
+  filter: drop-shadow(0 12px 18px rgba(45, 31, 20, 0.16));
+  outline: none;
+}
+
+.research-network-empty {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  fill: rgba(76, 58, 40, 0.74);
+  text-anchor: middle;
+}
+
+.research-network-note {
+  margin: 14px 0 0;
+  color: var(--muted);
+}
+
+.coword-edge {
+  stroke: rgba(110, 100, 89, 0.24);
+  stroke-linecap: round;
+  opacity: 0.9;
+  transition: opacity 180ms ease, stroke 180ms ease, stroke-width 180ms ease;
+}
+
+.coword-edge--strong {
+  stroke: rgba(91, 82, 76, 0.32);
+}
+
+.coword-node {
+  transition: opacity 180ms ease;
+}
+
+.coword-node circle {
+  transition: filter 180ms ease, stroke-width 180ms ease;
+}
+
+.coword-node:focus-visible {
+  outline: none;
+}
+
+.coword-label {
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-weight: 700;
+  text-anchor: middle;
+  letter-spacing: 0.01em;
+  pointer-events: none;
+}
+
+.coword-node--market circle {
+  fill: rgba(139, 52, 69, 0.16);
+  stroke: rgba(139, 52, 69, 0.55);
+}
+
+.coword-node--market text {
+  fill: #6f2432;
+}
+
+.coword-node--transport circle {
+  fill: rgba(90, 118, 100, 0.16);
+  stroke: rgba(90, 118, 100, 0.55);
+}
+
+.coword-node--transport text {
+  fill: #476454;
+}
+
+.coword-node--bridge circle {
+  fill: rgba(63, 111, 147, 0.16);
+  stroke: rgba(63, 111, 147, 0.55);
+}
+
+.coword-node--bridge text {
+  fill: #355d7c;
+}
+
+.coword-node--systems circle {
+  fill: rgba(107, 91, 80, 0.16);
+  stroke: rgba(107, 91, 80, 0.52);
+}
+
+.coword-node--systems text {
+  fill: #594b42;
+}
+
+.coword-node.is-active circle,
+.coword-node:focus-visible circle {
+  stroke-width: 2.6;
+  filter: drop-shadow(0 12px 22px rgba(45, 31, 20, 0.16));
+}
+
+.coword-edge.is-connected {
+  stroke: rgba(32, 37, 42, 0.4);
+  opacity: 1;
+}
+
+.coword-node.is-dimmed,
+.coword-edge.is-dimmed {
+  opacity: 0.16;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.research-note,
+.teaching-philosophy {
+  margin-top: 18px;
+}
+
+.footnote {
+  margin-top: 0;
+  margin-bottom: 18px;
+  color: var(--muted);
+}
+
+.publication-group + .publication-group {
+  margin-top: 18px;
+}
+
+.publication-list {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.expandable-list {
+  list-style: decimal;
+}
+
+.expandable-list li + li {
+  margin-top: 12px;
+}
+
+.pub-entry {
+  background: transparent;
+}
+
+.pub-entry summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.pub-title {
+  margin: 0;
+  font-family: "Manrope", "Segoe UI", sans-serif;
+  font-size: 1.06rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+
+.pub-title em {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--journal-accent);
+}
+
+.pub-detail {
+  margin: 10px 0 4px 8px;
+  padding-left: 18px;
+  border-left: 2px dashed rgba(110, 100, 89, 0.45);
+}
+
+.pub-detail-label {
+  position: relative;
+  margin: 0 0 2px;
+  padding-left: 26px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.pub-detail-label::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 16px;
+  border-top: 2px dashed rgba(110, 100, 89, 0.45);
+}
+
+.pub-abstract {
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+
+.pub-meta {
+  margin: 4px 0 0;
+  color: #5e6a71;
+  font-size: 0.96rem;
+}
+
+.pub-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0;
+}
+
+.pub-links a,
+.grant-card a {
+  color: var(--wsu-crimson);
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.pub-links a:hover,
+.pub-links a:focus-visible,
+.account-link:hover,
+.account-link:focus-visible,
+.grant-card a:hover,
+.grant-card a:focus-visible,
+.contact-mini a:hover,
+.contact-mini a:focus-visible {
+  text-decoration: underline;
+}
+
+@media (max-width: 1040px) {
+  .page-shell {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "top"
+      "left"
+      "right";
+  }
+
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tab-nav {
+    justify-content: flex-start;
+  }
+
+  .panel-inner {
+    position: static;
+  }
+
+  .contact-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .research-network {
+    min-height: 730px;
+  }
+
+  .page-shell {
+    width: min(calc(100% - 24px), var(--max-width));
+    margin: 12px auto;
+    gap: 14px;
+  }
+
+  .panel-inner,
+  .content-panel {
+    padding: 20px;
+  }
+
+  .profile-mark,
+  .profile-name,
+  .title,
+  .affiliation,
+  .contact-mini,
+  .accounts-block {
+    max-width: 100%;
+  }
+
+  .education-grid,
+  .teaching-grid,
+  .teaching-grid.four-up {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-nav {
+    gap: 12px;
+    width: 100%;
+  }
+
+  .tab-link {
+    width: auto;
+  }
+
+  .page-name {
+    white-space: normal;
+  }
+}
+
+
+
+
+
