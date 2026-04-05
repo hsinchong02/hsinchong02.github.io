@@ -2,7 +2,7 @@
 const tabPanels = [...document.querySelectorAll(".tab-panel")];
 const profilePanel = document.querySelector(".profile-panel");
 const SVG_NS = "http://www.w3.org/2000/svg";
-const MOBILE_BREAKPOINT = 760;
+const STACKED_LAYOUT_QUERY = window.matchMedia("(max-width: 1040px)");
 
 let currentTabId = "about";
 
@@ -11,7 +11,7 @@ const syncMobileProfilePanel = () => {
     return;
   }
 
-  const shouldHideProfile = window.innerWidth <= MOBILE_BREAKPOINT && currentTabId !== "about";
+  const shouldHideProfile = STACKED_LAYOUT_QUERY.matches && currentTabId !== "about";
   profilePanel.hidden = shouldHideProfile;
 };
 
