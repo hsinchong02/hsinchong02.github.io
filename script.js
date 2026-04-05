@@ -3,26 +3,39 @@ const tabPanels = [...document.querySelectorAll(".tab-panel")];
 const pageShell = document.querySelector(".page-shell");
 const profilePanel = document.querySelector(".profile-panel");
 const SVG_NS = "http://www.w3.org/2000/svg";
-const TABLET_PORTRAIT_HOME_QUERY = window.matchMedia(
-  "(min-width: 768px) and (max-width: 1040px) and (orientation: portrait)"
-);
-const PROFILE_COLLAPSE_QUERY = window.matchMedia(
-  "(max-width: 1040px) and (orientation: portrait), (max-width: 1040px) and (max-height: 500px) and (orientation: landscape)"
-);
+const TABLET_LAYOUT_MAX_WIDTH = 1040;
+const TABLET_LAYOUT_MIN_WIDTH = 768;
+const COMPACT_LANDSCAPE_MAX_HEIGHT = 500;
 
 let currentTabId = "about";
+
+const isPortraitViewport = () => window.innerHeight > window.innerWidth;
+
+const shouldCollapseProfilePanel = () => (
+  window.innerWidth <= TABLET_LAYOUT_MAX_WIDTH
+  && (
+    isPortraitViewport()
+    || window.innerHeight <= COMPACT_LANDSCAPE_MAX_HEIGHT
+  )
+);
+
+const shouldUseTabletPortraitHomeLayout = () => (
+  window.innerWidth >= TABLET_LAYOUT_MIN_WIDTH
+  && window.innerWidth <= TABLET_LAYOUT_MAX_WIDTH
+  && isPortraitViewport()
+);
 
 const syncMobileProfilePanel = () => {
   if (!profilePanel) {
     return;
   }
 
-  const shouldHideProfile = PROFILE_COLLAPSE_QUERY.matches && currentTabId !== "about";
+  const shouldHideProfile = shouldCollapseProfilePanel() && currentTabId !== "about";
   profilePanel.hidden = shouldHideProfile;
   pageShell?.classList.toggle("profile-panel-hidden", shouldHideProfile);
   pageShell?.classList.toggle(
     "tablet-portrait-home-layout",
-    TABLET_PORTRAIT_HOME_QUERY.matches && currentTabId === "about"
+    shouldUseTabletPortraitHomeLayout() && currentTabId === "about"
   );
 };
 
@@ -66,6 +79,9 @@ window.addEventListener("hashchange", () => {
 });
 
 window.addEventListener("resize", syncMobileProfilePanel);
+window.addEventListener("orientationchange", () => {
+  window.setTimeout(syncMobileProfilePanel, 150);
+});
 
 const publicationEntries = [...document.querySelectorAll("#publications .pub-entry")];
 const wordCloudSvg = document.querySelector("#research-word-cloud");
@@ -513,3 +529,4 @@ const buildResearchWordCloud = () => {
 };
 
 buildResearchWordCloud();
+
