@@ -1,8 +1,22 @@
-const tabLinks = [...document.querySelectorAll(".tab-link")];
+﻿const tabLinks = [...document.querySelectorAll(".tab-link")];
 const tabPanels = [...document.querySelectorAll(".tab-panel")];
+const profilePanel = document.querySelector(".profile-panel");
 const SVG_NS = "http://www.w3.org/2000/svg";
+const MOBILE_BREAKPOINT = 760;
+
+let currentTabId = "about";
+
+const syncMobileProfilePanel = () => {
+  if (!profilePanel) {
+    return;
+  }
+
+  const shouldHideProfile = window.innerWidth <= MOBILE_BREAKPOINT && currentTabId !== "about";
+  profilePanel.hidden = shouldHideProfile;
+};
 
 const setActiveTab = (tabId) => {
+  currentTabId = tabId;
   tabLinks.forEach((button) => {
     const isActive = button.dataset.tab === tabId;
     button.classList.toggle("active", isActive);
@@ -14,6 +28,8 @@ const setActiveTab = (tabId) => {
     panel.hidden = !isActive;
     panel.classList.toggle("active", isActive);
   });
+
+  syncMobileProfilePanel();
 };
 
 const validTabIds = new Set(tabPanels.map((panel) => panel.id));
@@ -37,6 +53,8 @@ window.addEventListener("hashchange", () => {
     setActiveTab(tabId);
   }
 });
+
+window.addEventListener("resize", syncMobileProfilePanel);
 
 const publicationEntries = [...document.querySelectorAll("#publications .pub-entry")];
 const wordCloudSvg = document.querySelector("#research-word-cloud");
