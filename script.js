@@ -1,8 +1,14 @@
 ﻿const tabLinks = [...document.querySelectorAll(".tab-link")];
 const tabPanels = [...document.querySelectorAll(".tab-panel")];
+const pageShell = document.querySelector(".page-shell");
 const profilePanel = document.querySelector(".profile-panel");
 const SVG_NS = "http://www.w3.org/2000/svg";
-const STACKED_LAYOUT_QUERY = window.matchMedia("(max-width: 1040px)");
+const TABLET_PORTRAIT_HOME_QUERY = window.matchMedia(
+  "(min-width: 768px) and (max-width: 1040px) and (orientation: portrait)"
+);
+const PROFILE_COLLAPSE_QUERY = window.matchMedia(
+  "(max-width: 1040px) and (orientation: portrait), (max-width: 1040px) and (max-height: 500px) and (orientation: landscape)"
+);
 
 let currentTabId = "about";
 
@@ -11,8 +17,13 @@ const syncMobileProfilePanel = () => {
     return;
   }
 
-  const shouldHideProfile = STACKED_LAYOUT_QUERY.matches && currentTabId !== "about";
+  const shouldHideProfile = PROFILE_COLLAPSE_QUERY.matches && currentTabId !== "about";
   profilePanel.hidden = shouldHideProfile;
+  pageShell?.classList.toggle("profile-panel-hidden", shouldHideProfile);
+  pageShell?.classList.toggle(
+    "tablet-portrait-home-layout",
+    TABLET_PORTRAIT_HOME_QUERY.matches && currentTabId === "about"
+  );
 };
 
 const setActiveTab = (tabId) => {
