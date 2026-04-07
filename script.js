@@ -2,6 +2,7 @@
 const tabPanels = [...document.querySelectorAll(".tab-panel")];
 const pageShell = document.querySelector(".page-shell");
 const profilePanel = document.querySelector(".profile-panel");
+const homeVideoBlocks = [...document.querySelectorAll(".home-video-block[data-video-id]")];
 const SVG_NS = "http://www.w3.org/2000/svg";
 const TABLET_LAYOUT_MAX_WIDTH = 1040;
 const TABLET_LAYOUT_MIN_WIDTH = 768;
@@ -39,6 +40,50 @@ const syncMobileProfilePanel = () => {
   );
 };
 
+const renderHomeVideo = (container) => {
+  const { videoId, videoTitle } = container.dataset;
+  if (!videoId) {
+    return;
+  }
+
+  container.replaceChildren();
+
+  // YouTube blocks file:// embeds because the request has no HTTP Referer.
+  if (window.location.protocol === "file:") {
+    const fallback = document.createElement("div");
+    fallback.className = "home-video-fallback";
+
+    const message = document.createElement("p");
+    message.textContent = "Embedded YouTube playback requires this page to be opened from a website or local web server.";
+
+    const action = document.createElement("p");
+    const link = document.createElement("a");
+    link.className = "home-inline-link";
+    link.href = `https://www.youtube.com/watch?v=${videoId}`;
+    link.target = "_blank";
+    link.rel = "noreferrer";
+    link.textContent = "Watch this video on YouTube";
+    action.append(link);
+
+    fallback.append(message, action);
+    container.append(fallback);
+    return;
+  }
+
+  const iframe = document.createElement("iframe");
+  iframe.className = "home-video-frame";
+  iframe.src = `https://www.youtube.com/embed/${videoId}`;
+  iframe.title = videoTitle || "Featured video";
+  iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  iframe.referrerPolicy = "strict-origin-when-cross-origin";
+  iframe.allowFullscreen = true;
+  container.append(iframe);
+};
+
+const initializeHomeVideos = () => {
+  homeVideoBlocks.forEach(renderHomeVideo);
+};
+
 const setActiveTab = (tabId) => {
   currentTabId = tabId;
   tabLinks.forEach((button) => {
@@ -62,6 +107,7 @@ const initialTab = validTabIds.has(window.location.hash.slice(1))
   : "about";
 
 setActiveTab(initialTab);
+initializeHomeVideos();
 
 tabLinks.forEach((button) => {
   button.addEventListener("click", () => {
