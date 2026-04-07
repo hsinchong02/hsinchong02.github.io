@@ -48,6 +48,11 @@ const renderHomeVideo = (container) => {
 
   container.replaceChildren();
 
+  const heading = document.createElement("p");
+  heading.className = "home-video-title";
+  heading.textContent = videoTitle || "Featured video";
+  container.append(heading);
+
   // YouTube blocks file:// embeds because the request has no HTTP Referer.
   if (window.location.protocol === "file:") {
     const fallback = document.createElement("div");
